@@ -79,6 +79,17 @@ app.post("/api/login", async (req, res) => {
   res.status(201).json({ token });
 });
 console.log("hi");
+// get all flights
+app.get("/api/flights", async (req, res) => {
+  const flights = await Flight.find();
+  res.json(flights);
+});
+// Add a new flight
+app.post("/api/flights", async (req, res) => {
+  const flight = new Flight(req.body);
+  await flight.save();
+  res.status(201).json({ message: "Flight added successfully" });
+});
 main();
 const port = 3001;
 app.listen(port, () => {
